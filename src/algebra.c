@@ -1,3 +1,11 @@
+/*
+ * @Author: xumeng xm_2048@qq.com
+ * @Date: 2024-05-13 22:22:23
+ * @LastEditors: xumeng xm_2048@qq.com
+ * @LastEditTime: 2024-05-13 22:39:32
+ * @FilePath: \xumeng-hw1\src\algebra.c
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 #include "algebra.h"
 #include <stdio.h>
 #include <math.h>
@@ -12,14 +20,32 @@ Matrix create_matrix(int row, int col)
 
 Matrix add_matrix(Matrix a, Matrix b)
 {
-    // ToDo
-    return create_matrix(0, 0);
+   if(a.rows != b.rows || a.cols != b.cols)
+   {return create_matrix(0,0);}
+
+   Matrix result = create_matrix(a.rows, a.cols);
+   for (int i = 0; i < a.rows; i++)
+   {
+       for (int j = 0; j < a.cols; j++)
+       {
+           result.data[i][j] = a.data[i][j] + b.data[i][j];
+       }
+   }
+   return result;
 }
 
 Matrix sub_matrix(Matrix a, Matrix b)
 {
-    // ToDo
-    return create_matrix(0, 0);
+    if(a.rows != b.rows || a.cols != b.cols)
+        return create_matrix(0, 0);
+    Matrix result = create_matrix(a.rows, a.cols);
+    for (int i = 0; i < a.rows; i++)
+    {
+        for (int j = 0; j < a.cols; j++){
+            result.data[i][j] = a.data[i][j] - b.data[i][j];
+        }    
+    }
+    return result;
 }
 
 Matrix mul_matrix(Matrix a, Matrix b)
