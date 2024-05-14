@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-13 22:22:23
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-13 22:39:32
+ * @LastEditTime: 2024-05-14 15:07:13
  * @FilePath: \xumeng-hw1\src\algebra.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -20,8 +20,9 @@ Matrix create_matrix(int row, int col)
 
 Matrix add_matrix(Matrix a, Matrix b)
 {
-   if(a.rows != b.rows || a.cols != b.cols)
-   {return create_matrix(0,0);}
+   if(a.rows != b.rows || a.cols != b.cols){
+    printf("Error: Matrix a and b must have the same rows and cols.\n");
+    }
 
    Matrix result = create_matrix(a.rows, a.cols);
    for (int i = 0; i < a.rows; i++)
@@ -37,7 +38,8 @@ Matrix add_matrix(Matrix a, Matrix b)
 Matrix sub_matrix(Matrix a, Matrix b)
 {
     if(a.rows != b.rows || a.cols != b.cols)
-        return create_matrix(0, 0);
+        printf("Error: Matrix a and b must have the same rows and cols.\n");
+        
     Matrix result = create_matrix(a.rows, a.cols);
     for (int i = 0; i < a.rows; i++)
     {
