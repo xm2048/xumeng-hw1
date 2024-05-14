@@ -22,6 +22,7 @@ Matrix add_matrix(Matrix a, Matrix b)
 {
    if(a.rows != b.rows || a.cols != b.cols){
     printf("Error: Matrix a and b must have the same rows and cols.\n");
+       return create_matrix(0,0);
     }
 
    Matrix result = create_matrix(a.rows, a.cols);
@@ -39,6 +40,7 @@ Matrix sub_matrix(Matrix a, Matrix b)
 {
     if(a.rows != b.rows || a.cols != b.cols)
         printf("Error: Matrix a and b must have the same rows and cols.\n");
+        return create_matrix(0,0);
         
     Matrix result = create_matrix(a.rows, a.cols);
     for (int i = 0; i < a.rows; i++)
