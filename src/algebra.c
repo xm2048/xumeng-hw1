@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-13 22:22:23
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-14 15:14:03
+ * @LastEditTime: 2024-05-15 22:16:47
  * @FilePath: \xumeng-hw1\src\algebra.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -22,7 +22,7 @@ Matrix add_matrix(Matrix a, Matrix b)
 {
    if(a.rows != b.rows || a.cols != b.cols){
     printf("Error: Matrix a and b must have the same rows and cols.\n");
-       return create_matrix(0,0);
+    return create_matrix(0,0);
     }
 
    Matrix result = create_matrix(a.rows, a.cols);
@@ -54,20 +54,43 @@ Matrix sub_matrix(Matrix a, Matrix b)
 
 Matrix mul_matrix(Matrix a, Matrix b)
 {
-    // ToDo
-    return create_matrix(0, 0);
+    if(a.cols!=b.rows){
+        printf("Error: The number of cols of matrix a must be equal to the number of rows of matrix b.\n");
+        return create_matrix(0,0);
+    }
+    Matrix result = create_matrix(a.rows, b.cols);
+    for(int i=0;i<a.rows;i++){
+        for(int j=0;j<b.cols;j++){
+            for(int k=0;k<a.cols;k++){
+                result.data[i][j] += a.data[i][k] * b.data[k][j];
+            }
+
+    }
+    }
+    return result;
 }
 
 Matrix scale_matrix(Matrix a, double k)
 {
-    // ToDo
-    return create_matrix(0, 0);
+    Matrix result = create_matrix(a.rows , a.cols);
+    for(int i=0;i<a.rows;i++){
+        for(int j=0;j<a.cols;j++){
+            result.data[i][j]=a.data[i][j]* k;
+        }
+    }
+    return result;
 }
 
 Matrix transpose_matrix(Matrix a)
 {
-    // ToDo
-    return create_matrix(0, 0);
+   Matrix result = create_matrix(a.cols, a.rows);
+   for(int i=0;i<a.cols;i++){
+        for(int j=0;j<a.rows;j++){
+            result.data[i][j]=a.data[j][i];
+        }
+       
+   }
+   return result;
 }
 
 double det_matrix(Matrix a)
