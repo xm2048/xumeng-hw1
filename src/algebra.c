@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-19 19:37:30
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-19 21:23:16
+ * @LastEditTime: 2024-05-19 23:41:49
  * @FilePath: \xumeng-hw1\src\algebra.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <math.h>
 Matrix adj_matrix(Matrix a);
+
 
 Matrix create_matrix(int row, int col)
 {
@@ -209,11 +210,70 @@ Matrix adj_matrix(Matrix a) {
     return adjointMatrix;
 }
 
+int rank_matrix(Matrix a) {
 
-int rank_matrix(Matrix a)
-{
-    // ToDo
-    return 0;
+    if (a.rows == 0 || a.cols == 0) {
+        printf("Error: The matrix is empty.\n");
+        return 0;
+    }
+
+    Matrix currentMatrix = a;
+    int rank = 0;
+
+    for (int i = 0; i < currentMatrix.rows; i++) {
+        int pivotRow = -1;
+        int pivotCol = -1;
+        double pivot = 0;
+
+        for (int j = i; j < currentMatrix.rows; j++) {
+            for (int k = i; k < currentMatrix.cols; k++) {
+                if (fabs(currentMatrix.data[j][k]) > fabs(pivot)) {
+                    pivotRow = j;
+                    pivotCol = k;
+                    pivot = currentMatrix.data[j][k];
+                }
+            }
+        }
+
+        if (pivot == 0) {
+            break;
+        }
+
+        rank++;
+
+        // 交换行
+        double tempRow[100];
+        for (int j = 0; j < currentMatrix.cols; j++) {
+            tempRow[j] = currentMatrix.data[pivotRow][j];
+            currentMatrix.data[pivotRow][j] = currentMatrix.data[i][j];
+            currentMatrix.data[i][j] = tempRow[j];
+        }
+
+        // 交换列
+        for (int j = 0; j < currentMatrix.rows; j++) {
+            double tempCol = currentMatrix.data[j][pivotCol];
+            currentMatrix.data[j][pivotCol] = currentMatrix.data[j][i];
+            currentMatrix.data[j][i] = tempCol;
+        }
+
+        // 消去列
+        for (int j = i + 1; j < currentMatrix.rows; j++) {
+            double factor = currentMatrix.data[j][i] / currentMatrix.data[i][i];
+            for (int k = i; k < currentMatrix.cols; k++) {
+                currentMatrix.data[j][k] -= factor * currentMatrix.data[i][k];
+            }
+        }
+
+        // 消去行
+        for (int j = 0; j < i; j++) {
+            double factor = currentMatrix.data[j][i] / currentMatrix.data[i][i];
+            for (int k = i; k < currentMatrix.cols; k++) {
+                currentMatrix.data[j][k] -= factor * currentMatrix.data[i][k];
+            }
+        }
+    }
+
+    return rank;
 }
 
 double trace_matrix(Matrix a) {
