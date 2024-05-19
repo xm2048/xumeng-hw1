@@ -198,7 +198,11 @@ Matrix adj_matrix(Matrix a) {
                 }
                 subMatrixRow++;
             }
-            adjointMatrix.data[j][i] = pow(-1, i + j) * det_matrix(subMatrix);
+            int sign = 1;
+            for (int k = 0; k < (i + j); k++) {
+                 sign *= -1;
+                }
+            adjointMatrix.data[j][i] = sign * det_matrix(subMatrix);
         }
     }
 
