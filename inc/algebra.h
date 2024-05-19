@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-13 22:22:23
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-19 21:33:26
+ * @LastEditTime: 2024-05-19 21:39:48
  * @FilePath: \xumeng-hw1\inc\algebra.h
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -96,7 +96,6 @@ double trace_matrix(Matrix a);
  * @brief 打印矩阵，格式为：按行打印，每个元素占8个字符的宽度，小数点后保留2位，左对齐
  * @param a 矩阵a
 */
-void print_matrix(Matrix  a);
-
+void print_matrix(Matrix a);
 
 #endif
