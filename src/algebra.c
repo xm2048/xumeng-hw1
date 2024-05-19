@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-13 22:22:23
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-19 19:41:50
+ * @LastEditTime: 2024-05-19 20:08:08
  * @FilePath: \xumeng-hw1\src\algebra.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -110,7 +110,7 @@ double det_matrix(Matrix a) {
         int subMatrixRow = 0;
         for (int j = 1; j < a.rows; j++) {
             int subMatrixCol = 0;
-            for (int k = 0; k < a.cols; k++) {
+            for (int k = 0; k < a.cols;k++) {
                 if (k == i) {
                     continue;
                 }
@@ -119,10 +119,10 @@ double det_matrix(Matrix a) {
             }
             subMatrixRow++;
         }
-        det += a.data[0][i] * det_matrix(subMatrix) * ((i % 2 == 0) ? 1 : -1) ;
+        det += a.data[0][i] * det_matrix(subMatrix) * ((i % 2 == 0) ? 1 : -1) ;}
 
     return det;
-}
+
 }
 Matrix inv_matrix(Matrix a)
 {
