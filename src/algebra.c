@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-13 22:22:23
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-19 20:45:11
+ * @LastEditTime: 2024-05-19 21:20:07
  * @FilePath: \xumeng-hw1\src\algebra.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -105,9 +105,9 @@ double det_matrix(Matrix a) {
     }
 
     double det = 0;
-    for (int i = 0; i < a.rows; i++) {
+    for (int i = 0; i < a.rows; i ++) {
         Matrix subMatrix = create_matrix(a.rows - 1, a.cols-1 );
-        int subMatrixRow = 0;
+        int subMatrixRow  = 0;
         for (int j = 1; j < a.rows; j++) {
             int subMatrixCol = 0;
             for (int k = 0; k < a.cols;k++) {
