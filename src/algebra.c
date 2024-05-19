@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-13 22:22:23
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-19 20:08:08
+ * @LastEditTime: 2024-05-19 20:45:11
  * @FilePath: \xumeng-hw1\src\algebra.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -124,11 +124,77 @@ double det_matrix(Matrix a) {
     return det;
 
 }
-Matrix inv_matrix(Matrix a)
-{
-    // ToDo
-    return create_matrix(0, 0);
+Matrix inv_matrix(Matrix a) {
+    if (a.rows != a.cols) {
+        printf("Error: The matrix must be a square matrix.\n");
+        return create_matrix(0, 0);
+    }
+
+    Matrix identityMatrix = create_matrix(a.rows, a.cols);//创建一个特征矩阵
+    for (int i = 0; i < a.rows; i++) {
+        for (int j = 0; j < a.cols; j++) {
+            if (i == j) {
+                identityMatrix.data[i][j] = 1;
+            } else {
+                identityMatrix.data[i][j] = 0;
+            }
+        }
+    }
+
+    Matrix inverseMatrix = create_matrix(a.rows, a.cols);
+    double determinant = det_matrix(a);
+    if (determinant == 0) {
+        printf("Error: The matrix is singular.\n");
+        return create_matrix(0, 0);
+    }
+
+    Matrix adjointMatrix = create_matrix(a.rows, a.cols);
+    adjointMatrix = adj_matrix(a);
+
+    for (int i = 0; i < a.rows; i++) {
+        for (int j = 0; j < a.cols; j++) {
+            inverseMatrix.data[i][j] = adjointMatrix.data[i][j] / determinant;
+        }
+    }
+    
+    return inverseMatrix;
 }
+
+
+//求一个矩阵的伴随矩阵
+Matrix adj_matrix(Matrix a) {
+    if (a.rows != a.cols) {
+        printf("Error: The matrix must be a square matrix.\n");
+        return create_matrix(0, 0);
+    }
+
+    Matrix adjointMatrix = create_matrix(a.rows, a.cols);
+
+    for (int i = 0; i < a.rows; i++) {
+        for (int j = 0; j < a.cols; j++) {
+            Matrix subMatrix = create_matrix(a.rows - 1, a.cols - 1);
+            int subMatrixRow = 0;
+            for (int m = 0; m < a.rows; m++) {
+                int subMatrixCol = 0;
+                if (m == i) {
+                    continue;
+                }
+                for (int n = 0; n < a.cols; n++) {
+                    if (n == j) {
+                        continue;
+                    }
+                    subMatrix.data[subMatrixRow][subMatrixCol] = a.data[m][n];
+                    subMatrixCol++;
+                }
+                subMatrixRow++;
+            }
+            adjointMatrix.data[j][i] = pow(-1, i + j) * det_matrix(subMatrix);
+        }
+    }
+
+    return adjointMatrix;
+}
+
 
 int rank_matrix(Matrix a)
 {

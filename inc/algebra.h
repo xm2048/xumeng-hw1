@@ -90,4 +90,5 @@ double trace_matrix(Matrix a);
 */
 void print_matrix(Matrix a);
 
+Matrix adj_matrix(Matrix a);
 #endif
