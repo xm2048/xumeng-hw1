@@ -2,7 +2,7 @@
  * @Author: xumeng xm_2048@qq.com
  * @Date: 2024-05-13 22:22:23
  * @LastEditors: xumeng xm_2048@qq.com
- * @LastEditTime: 2024-05-19 18:08:54
+ * @LastEditTime: 2024-05-19 19:41:50
  * @FilePath: \xumeng-hw1\src\algebra.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -136,10 +136,18 @@ int rank_matrix(Matrix a)
     return 0;
 }
 
-double trace_matrix(Matrix a)
-{
-    // ToDo
-    return 0;
+double trace_matrix(Matrix a) {
+    if (a.rows != a.cols) {
+        printf("Error: The matrix must be a square matrix.\n");
+        return 0;
+    }
+
+    double trace = 0;
+    for (int i = 0; i < a.rows; i++) {
+        trace += a.data[i][i];
+    }
+
+    return trace;
 }
 
 void print_matrix(Matrix a)
